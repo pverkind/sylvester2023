@@ -64,6 +64,7 @@
 
         #scroll {
             z-index: -10;
+            pointer-events: auto !important; /* prevent scrolling*/
         }
 
         #letter {
@@ -135,11 +136,6 @@
           return false;
         };
         document.addEventListener('DOMContentLoaded', () => {
-            /*candle.onclick = (e)  => {
-                if (candleClicked) {
-                    candleClicked = false;
-                }
-            };*/
             candlehandle.onclick = (e)  => {
                 if (candleClicked) {
                     candleClicked = false;
@@ -148,7 +144,7 @@
                 }
                 console.log("candle clicked");
             };
-            candlehandle.ondragstart = (e)  => {
+            candle.ondragstart = (e)  => {
                 candleClicked=true;
                 console.log("candle clicked");
                 e.preventDefault();
