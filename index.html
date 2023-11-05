@@ -148,15 +148,17 @@
                 }
                 console.log("candle clicked");
             };
-            candle.ondragstart = (e)  => {
+            candlehandle.ondragstart = (e)  => {
                 candleClicked=true;
                 console.log("candle clicked");
+                e.preventDefault();
             };
             let mousePosX = 0, 
                 mousePosY = 0; 
             
             
             const handleMouseMove = (e) => { 
+                e.preventDefault();
                 mousePosX = e.pageX-75; 
                 mousePosY = e.pageY-75; 
                 if (!candleClicked){
@@ -170,7 +172,7 @@
                 }
             }
             const handleTouchMove = (e) => { 
-                
+                e.preventDefault();
                 mousePosX = e.changedTouches[e.changedTouches.length-1].pageX-75; 
                 mousePosY = e.changedTouches[e.changedTouches.length-1].pageY-75; 
                 if (!candleClicked){
