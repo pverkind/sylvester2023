@@ -156,7 +156,7 @@
                 mousePosY = 0; 
             
             
-            const handleMove = (e) => { 
+            const handleMouseMove = (e) => { 
                 mousePosX = e.pageX-75; 
                 mousePosY = e.pageY-75; 
                 if (!candleClicked){
@@ -168,9 +168,23 @@
                 } else {
                     mouseCircle.style.display="block";
                 }
+            }
+            const handleTouchMove = (e) => { 
+                
+                mousePosX = e.changedTouches[e.changedTouches.length-1].pageX-75; 
+                mousePosY = e.changedTouches[e.changedTouches.length-1].pageY-75; 
+                if (!candleClicked){
+                    mouseCircle.style.display="none";
+                } else if (e.pageX+50 < 175 || e.pageX+50 >500){
+                    mouseCircle.style.display="none";
+                } else if (e.pageY-candleheight < 175 || e.pageY-candleheight >800) {
+                    mouseCircle.style.display="none";
+                } else {
+                    mouseCircle.style.display="block";
+                }
             } 
-            document.addEventListener("mousemove", handleMove, false);
-            document.addEventListener("touchmove", handleMove, false);
+            document.addEventListener("mousemove", handleMouseMove, false);
+            document.addEventListener("touchmove", handleTouchMove, false);
             let delay = 50, 
                 revisedMousePosX = 0, 
                 revisedMousePosY = 0; 
