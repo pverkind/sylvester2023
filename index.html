@@ -35,7 +35,7 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: rgb(127,0,0); /*rgb(108,79,21);       /*burnt colour*/
+            background: chocolate;/* rgb(127,0,0); /*rgb(108,79,21);       /*burnt colour*/
             border-color: rgb(250, 241, 236); /*paper colour*/
             border-width: 5px;
             z-index: -1;
@@ -148,6 +148,7 @@
                 candleClicked=true;
                 console.log("candle clicked");
                 e.preventDefault();
+                e.stopPropagation();
             };
             let mousePosX = 0, 
                 mousePosY = 0; 
@@ -155,6 +156,7 @@
             
             const handleMouseMove = (e) => { 
                 e.preventDefault();
+                e.stopPropagation();
                 mousePosX = e.pageX-75; 
                 mousePosY = e.pageY-75; 
                 if (!candleClicked){
@@ -169,6 +171,7 @@
             }
             const handleTouchMove = (e) => { 
                 e.preventDefault();
+                e.stopPropagation();
                 mousePosX = e.changedTouches[e.changedTouches.length-1].pageX-75; 
                 mousePosY = e.changedTouches[e.changedTouches.length-1].pageY-75; 
                 if (!candleClicked){
