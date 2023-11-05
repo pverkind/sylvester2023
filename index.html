@@ -92,7 +92,7 @@
             margin-left: 885px;
             margin-top: 925px;
             /*background-color: yellow;*/
-            cursor: grab;
+            cursor: pointer;
         }
 
         /* Start https://www.cursors-4u.com */ 
@@ -149,6 +149,12 @@
                 console.log("candle clicked");
                 e.preventDefault();
                 e.stopPropagation();
+            };
+            candlehandle.ondragstart = (e)  => {
+                candleClicked=true;
+                console.log("candle clicked");
+                e.preventDefault();
+                /*e.stopPropagation();*/
             };
             let mousePosX = 0, 
                 mousePosY = 0; 
