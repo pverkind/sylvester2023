@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.cdnfonts.com/css/ethena-emporium-script" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/adoretta-holland-script" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/ethena-emporium-script');
+        @import url('https://fonts.cdnfonts.com/css/adoretta-holland-script');
+        body {
+            color: rgb(250, 241, 236);  /*paper color*/
+
+            font-family: 'Ethena Emporium Script', "Times New Roman", sans-serif;
+            /*font-family: 'Adoretta Holland Script', sans-serif;*/
+            font-size: 38px;
+
+            /*make text non-selectable*/
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+        }
+        /**
+        * Radial cursor
+        */
+        #mouse-circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgb(127,0,0); /*rgb(108,79,21);       /*burnt colour*/
+            border-color: rgb(250, 241, 236); /*paper colour*/
+            border-width: 5px;
+            z-index: -1;
+            -webkit-box-shadow: inset 0px 0px 40px 48px rgb(250, 241, 236);
+            -moz-box-shadow: inset 0px 0px 40px 48px rgb(250, 241, 236);
+            box-shadow: inset 0px 0px 40px 48px rgb(250, 241, 236);
+            background-clip: content-box;
+
+            padding: 1px;
+            z-index:1
+
+        }
+
+        p1 {
+           color: rgb(250,249,245);
+        }
+        p2 {
+           color: rgb(250,249,245);
+        }
+
+        .pi {
+            font-style: italic;
+            font-size: 25px;
+            margin-top: -10px;
+        }
+
+        #scroll {
+            z-index: -10;
+        }
+
+        #letter {
+            display: block;
+            z-index: 5;
+            position:absolute;
+            margin-left: 150px;
+            margin-top: 150px;
+            width: 400px;
+            height: 600px;
+            /*cursor: url(flame-icon-small.png), auto !important;*/
+            cursor: none;
+        }
+
+        #candle {
+            height: 300px;
+            margin-left: 900px;
+            margin-top: 700px;
+            z-index: -20
+        }
+
+        #candlehandle {
+            height: 50px;
+            width: 50px;
+            margin-left: 885px;
+            margin-top: 925px;
+            /*background-color: yellow;*/
+            cursor: grab;
+        }
+
+        /* Start https://www.cursors-4u.com */ 
+        * {
+            /*cursor: url(https://cur.cursors-4u.net/user/use-1/use160.cur), auto !important;*/
+            
+        } 
+
+    </style>
+</head>
+<body>
+    <div id="wrapper" style="position: relative;">
+        <img id="scroll" style="position: absolute;" src="./scroll.png"></img>
+        <div id="candlehandle" style="position: absolute;" ></div>
+        <img id="candle" style="position: absolute;" src="./candle2.png"></img>
+        <div id="mouse-circle"></div>
+        <div id="letter">
+            <p>Hooggeachte Aspirant - Magiër,</p>
+            <p class="p1">Wij nodigen u graag uit op onze recruteringsavond . 
+                Deze vindt plaats op Sylvesternacht
+                in de banketzaal van onze school .</p>
+            <p class="p2">U wordt geacht uw kunsten te demonstreren
+                door een passende maaltijd op tafel te toveren .</p>
+            <p class="p3">Gelieve tijdig te laten weten of u zelf komt 
+                dan wel uw zwarte kat .</p>
+            <p class="salutation">Magische groeten,</p>
+            <p class="pi">π</p>
+        </div>
+    </div>
+    
+</body>
+    <script>
+        let candleClicked = false;
+        const mouseCircle = document.getElementById('mouse-circle');
+        const candle = document.getElementById('candle');
+        const candlehandle = document.getElementById('candlehandle');
+        const candleheight = 200;
+        // 
+        const img = document.querySelector("img");
+        img.ondragstart = () => {
+          return false;
+        };
+        document.addEventListener('DOMContentLoaded', () => {
+            /*candle.onclick = (e)  => {
+                if (candleClicked) {
+                    candleClicked = false;
+                }
+            };*/
+            candlehandle.onclick = (e)  => {
+                if (candleClicked) {
+                    candleClicked = false;
+                } else {
+                    candleClicked=true;
+                }
+                console.log("candle clicked");
+            };
+            candle.ondragstart = (e)  => {
+                candleClicked=true;
+                console.log("candle clicked");
+            };
+            let mousePosX = 0, 
+                mousePosY = 0; 
+            
+            
+            const handleMove = (e) => { 
+                mousePosX = e.pageX-75; 
+                mousePosY = e.pageY-75; 
+                if (!candleClicked){
+                    mouseCircle.style.display="none";
+                } else if (e.pageX+50 < 175 || e.pageX+50 >500){
+                    mouseCircle.style.display="none";
+                } else if (e.pageY-candleheight < 175 || e.pageY-candleheight >800) {
+                    mouseCircle.style.display="none";
+                } else {
+                    mouseCircle.style.display="block";
+                }
+            } 
+            document.addEventListener("mousemove", handleMove, false);
+            document.addEventListener("touchmove", handleMove, false);
+            let delay = 50, 
+                revisedMousePosX = 0, 
+                revisedMousePosY = 0; 
+            function delayMouseFollow() { 
+                requestAnimationFrame(delayMouseFollow); 
+                revisedMousePosX += (mousePosX - revisedMousePosX) / delay; 
+                revisedMousePosY += (mousePosY - revisedMousePosY) / delay; 
+                mouseCircle.style.top = revisedMousePosY -candleheight + 'px'; 
+                mouseCircle.style.left = revisedMousePosX + 50 + 'px';
+                 
+                if (candleClicked) {
+                    candle.style.marginLeft = mousePosX +50 + 'px'; 
+                    candle.style.marginTop = mousePosY  - candleheight + 'px'; 
+                }
+                
+            } 
+            delayMouseFollow(); 
+        });
+    </script>
+</html>
